@@ -26,8 +26,6 @@ export default function ProductPage() {
       const foundProduct = getProductById(params.id as string);
       if (foundProduct) {
         setProduct(foundProduct);
-        
-        // Get related products (featured products + same category)
         const featured = getFeaturedProducts().filter(p => p.id !== foundProduct.id);
         setRelatedProducts(featured.slice(0, 4));
       }
@@ -38,7 +36,7 @@ export default function ProductPage() {
   if (!isLoading && !product) {
     notFound();
   }
-  
+
   if (!product) {
     return (
       <div className="min-h-screen pt-24 flex items-center justify-center">
@@ -47,14 +45,8 @@ export default function ProductPage() {
     );
   }
 
-  const incrementQuantity = () => {
-    setQuantity(prev => prev + 1);
-  };
-
-  const decrementQuantity = () => {
-    setQuantity(prev => (prev > 1 ? prev - 1 : 1));
-  };
-  
+  const incrementQuantity = () => setQuantity(prev => prev + 1);
+  const decrementQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
   const addToCart = () => {
     toast({
       title: "Added to cart",
@@ -62,16 +54,14 @@ export default function ProductPage() {
       variant: "default",
     });
   };
-  
+
   return (
     <div className="min-h-screen pt-24 pb-16 bg-black relative">
-      {/* Spooky background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-red-950/10 to-transparent"></div>
       </div>
-      
+
       <div className="container mx-auto px-4">
-        {/* Back button */}
         <div className="mb-8">
           <Button variant="ghost" asChild className="text-gray-400 hover:text-white">
             <Link href="/shop" className="flex items-center">
@@ -80,9 +70,8 @@ export default function ProductPage() {
             </Link>
           </Button>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Image */}
           <div className="relative rounded-lg overflow-hidden border border-gray-800 bg-black h-[400px] md:h-[500px]">
             <div 
               className="absolute inset-0 bg-cover bg-center"
@@ -91,11 +80,7 @@ export default function ProductPage() {
                 filter: "brightness(0.9) contrast(1.1)"
               }}
             />
-            
-            {/* Overlay gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-            
-            {/* Price tag */}
             <div className="absolute top-4 right-4 z-10">
               <Badge className="text-lg py-1 px-3 bg-red-900 hover:bg-red-800">
                 ${product.price.toFixed(2)}
@@ -106,22 +91,17 @@ export default function ProductPage() {
                 </div>
               )}
             </div>
-            
-            {/* Stock badge */}
             <div className="absolute bottom-4 left-4 z-10">
               <Badge variant={product.inStock ? "outline" : "destructive"} className="py-1 px-3">
                 {product.inStock ? "In Stock" : "Out of Stock"}
               </Badge>
             </div>
           </div>
-          
-          {/* Product Details */}
+
           <div>
             <h1 className="text-3xl md:text-4xl font-semibold text-white mb-4">
               {product.name}
             </h1>
-            
-            {/* Rating */}
             <div className="flex items-center mb-6">
               <div className="flex items-center">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -138,13 +118,11 @@ export default function ProductPage() {
               </div>
               <span className="text-gray-400 ml-2">({product.rating})</span>
             </div>
-            
-            {/* Description */}
+
             <p className="text-gray-300 mb-8 text-lg">
               {product.description}
             </p>
-            
-            {/* Tags */}
+
             <div className="flex flex-wrap gap-2 mb-8">
               {product.tags?.map(tag => (
                 <Badge 
@@ -156,10 +134,9 @@ export default function ProductPage() {
                 </Badge>
               ))}
             </div>
-            
+
             <Separator className="my-8 bg-gray-800" />
-            
-            {/* Quantity and Add to Cart */}
+
             <div className="mb-8">
               <h3 className="text-white font-medium mb-4">Quantity</h3>
               <div className="flex items-center">
@@ -183,7 +160,6 @@ export default function ProductPage() {
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
-                
                 <Button
                   className="ml-6 bg-red-800 hover:bg-red-700 text-white flex-1"
                   size="lg"
@@ -195,8 +171,7 @@ export default function ProductPage() {
                 </Button>
               </div>
             </div>
-            
-            {/* Shipping and Guarantees */}
+
             <div className="space-y-4 mb-8">
               <div className="flex items-center text-gray-300">
                 <Truck className="h-5 w-5 text-red-500 mr-3" />
@@ -207,19 +182,12 @@ export default function ProductPage() {
                 <span>30-day return policy with our Cursed Guarantee</span>
               </div>
             </div>
-            
-            {/* Additional Info Tabs */}
+
             <Tabs defaultValue="details" className="mt-8">
               <TabsList className="bg-gray-900 border border-gray-800">
-                <TabsTrigger value="details" className="data-[state=active]:bg-red-900">
-                  Details
-                </TabsTrigger>
-                <TabsTrigger value="shipping" className="data-[state=active]:bg-red-900">
-                  Shipping
-                </TabsTrigger>
-                <TabsTrigger value="reviews" className="data-[state=active]:bg-red-900">
-                  Reviews
-                </TabsTrigger>
+                <TabsTrigger value="details" className="data-[state=active]:bg-red-900">Details</TabsTrigger>
+                <TabsTrigger value="shipping" className="data-[state=active]:bg-red-900">Shipping</TabsTrigger>
+                <TabsTrigger value="reviews" className="data-[state=active]:bg-red-900">Reviews</TabsTrigger>
               </TabsList>
               <TabsContent value="details" className="mt-4 text-gray-300">
                 <div className="bg-gray-950 border border-gray-800 rounded-lg p-6">
@@ -237,7 +205,7 @@ export default function ProductPage() {
                 <div className="bg-gray-950 border border-gray-800 rounded-lg p-6">
                   <h4 className="text-white font-medium mb-2">Shipping Information</h4>
                   <p className="text-gray-400 mb-4">
-                    All orders are processed and shipped within 1-2 business days. Our spectral delivery fleet ensures your parts arrive quickly and in perfect condition.
+                    All orders are processed and shipped within 1-2 business days.
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-gray-400">
                     <li>Standard Shipping: 3-5 business days (Free on orders over $99)</li>
@@ -249,53 +217,13 @@ export default function ProductPage() {
               <TabsContent value="reviews" className="mt-4 text-gray-300">
                 <div className="bg-gray-950 border border-gray-800 rounded-lg p-6">
                   <h4 className="text-white font-medium mb-4">Customer Reviews</h4>
-                  <div className="space-y-4">
-                    <div className="border-b border-gray-800 pb-4">
-                      <div className="flex justify-between mb-2">
-                        <span className="text-white font-medium">Ghostly Rider</span>
-                        <div className="flex">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star
-                              key={i}
-                              className={cn(
-                                "h-4 w-4",
-                                i < 5 ? "text-yellow-500 fill-yellow-500" : "text-gray-600"
-                              )}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      <p className="text-gray-400">
-                        This part exceeded my expectations! Installation was a breeze and the quality is outstanding. My bike now sounds like it's possessed by demons, exactly what I wanted!
-                      </p>
-                    </div>
-                    <div className="border-b border-gray-800 pb-4">
-                      <div className="flex justify-between mb-2">
-                        <span className="text-white font-medium">Night Crawler</span>
-                        <div className="flex">
-                          {Array.from({ length: 5 }).map((_, i) => (
-                            <Star
-                              key={i}
-                              className={cn(
-                                "h-4 w-4",
-                                i < 4 ? "text-yellow-500 fill-yellow-500" : "text-gray-600"
-                              )}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      <p className="text-gray-400">
-                        Great quality but took a bit longer to install than expected. The effect is worth it though - my bike has never looked more intimidating.
-                      </p>
-                    </div>
-                  </div>
+                  <p className="text-gray-400">⭐⭐⭐⭐⭐ Very spooky! My bike now howls in the night.</p>
                 </div>
               </TabsContent>
             </Tabs>
           </div>
         </div>
-        
-        {/* Related Products */}
+
         {relatedProducts.length > 0 && (
           <div className="mt-16">
             <h2 className="font-creepster text-3xl text-red-600 mb-8">You May Also Like</h2>
@@ -309,4 +237,12 @@ export default function ProductPage() {
       </div>
     </div>
   );
+}
+
+// 🛠️ Tambahan agar halaman dinamis bisa dibuild secara statis
+export async function generateStaticParams() {
+  const products = getFeaturedProducts(); // atau getAllProducts() jika tersedia
+  return products.map((product) => ({
+    id: product.id.toString(),
+  }));
 }
