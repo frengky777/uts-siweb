@@ -26,6 +26,9 @@ export default function Home() {
 
       {/* Newsletter */}
       <Newsletter />
+      
+      {/* Button */}
+      <Button/>
 
       {/* Floating blood splatter decoration */}
       <div className="absolute bottom-10 right-10 w-64 h-64 bg-[url('https://images.pexels.com/photos/3640403/pexels-photo-3640403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] opacity-10 bg-contain bg-no-repeat pointer-events-none" />
