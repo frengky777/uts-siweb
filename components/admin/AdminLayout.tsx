@@ -79,7 +79,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       >
         {/* Logo */}
         <div className="flex items-center p-4 h-16 border-b border-gray-800">
-          {!['/admin/dashboard', '/admin/products', '/admin/transactions'].includes(pathname) && (
+          {!['/admin/dashboard', '/admin/products', '/admin/transactions'].includes(pathname ??"") && (
             <Link href="/admin/dashboard" className="flex items-center">
               <MotorbikeCog className={cn(
                 "text-red-500 transition-all duration-300",
