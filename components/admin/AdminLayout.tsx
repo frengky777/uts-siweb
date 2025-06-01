@@ -87,7 +87,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
               )} />
               <span className={cn(
                 "font-creepster text-xl text-red-500 transition-all duration-300",
-                isSidebarOpen ? "opacity-100" : "opacity-0 w-0 overflow-hidden"
+                isSidebarOpen ? "opacity-100" : "opaci/ty-0 w-0 overflow-hidden"
              )}>
               Admin Panel
            </span>
