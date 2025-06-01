@@ -1,35 +1,11 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 type LoadingContextType = {
   isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   toggleLoading: () => void;
 };
 
 const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
-
-export const LoadingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Simulasi loading data awal
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const toggleLoading = () => {
-    setIsLoading(prev => !prev);
-  };
-
-  return (
-    <LoadingContext.Provider value={{ isLoading, setIsLoading, toggleLoading }}>
-      {children}
-    </LoadingContext.Provider>
-  );
-};
 
 export const useLoading = () => {
   const context = useContext(LoadingContext);
@@ -37,4 +13,16 @@ export const useLoading = () => {
     throw new Error('useLoading must be used within a LoadingProvider');
   }
   return context;
+};
+
+export const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toggleLoading = () => setIsLoading(prev => !prev);
+
+  return (
+    <LoadingContext.Provider value={{ isLoading, toggleLoading }}>
+      {children}
+    </LoadingContext.Provider>
+  );
 };
