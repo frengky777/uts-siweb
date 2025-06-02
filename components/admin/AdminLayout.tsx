@@ -79,18 +79,21 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       >
         {/* Logo */}
         <div className="flex items-center p-4 h-16 border-b border-gray-800">
-          <Link href="/admin/dashboard" className="flex items-center">
-            <MotorbikeCog className={cn(
-              "text-red-500 transition-all duration-300",
-              isSidebarOpen ? "h-8 w-8 mr-3" : "h-8 w-8"
-            )} />
-            <span className={cn(
-              "font-creepster text-xl text-red-500 transition-all duration-300",
-              isSidebarOpen ? "opacity-100" : "opacity-0 w-0 overflow-hidden"
-            )}>
+          {!['/admin/dashboard', '/admin/products', '/admin/transactions'].includes(pathname ??"") && (
+            <Link href="/admin/dashboard" className="flex items-center">
+              <MotorbikeCog className={cn(
+                "text-red-500 transition-all duration-300",
+                isSidebarOpen ? "h-8 w-8 mr-3" : "h-8 w-8"
+              )} />
+              <span className={cn(
+                "font-creepster text-xl text-red-500 transition-all duration-300",
+                isSidebarOpen ? "opacity-100" : "opaci/ty-0 w-0 overflow-hidden"
+             )}>
               Admin Panel
-            </span>
-          </Link>
+           </span>
+         </Link>
+        )}
+
         </div>
         
         {/* Navigation */}

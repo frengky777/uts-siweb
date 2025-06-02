@@ -44,9 +44,9 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <MotorbikeCog className="h-8 w-8 text-red-500" />
-            <span className="font-creepster text-2xl tracking-wider text-red-500">Haunted Parts</span>
-          </Link>
+  <MotorbikeCog className="h-8 w-8 text-red-500" />
+</Link>
+
           
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">

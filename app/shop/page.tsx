@@ -29,7 +29,7 @@ export default function ShopPage() {
   // Initialize filters from URL params
   useEffect(() => {
     setLoaded(true);
-    const categoryParam = searchParams.get("category");
+    const categoryParam = searchParams?.get("category");
     if (categoryParam) {
       setSelectedCategories([categoryParam]);
     }
